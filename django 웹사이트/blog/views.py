@@ -1,11 +1,15 @@
-from django.shortcuts import render
-from django.views.generic import ListView
+#from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 from .models import Post
 
 class PostList(ListView):#기존 FBV의 index와 같은 역할
     model=Post  # 포스트 목록
     #template_name='blog/index.html'
     ordering='-pk' # 최신 포스트부터 정렬되어 나옴
+
+class PostDetail(DetailView):
+    model=Post
+    context_object_name='post_detail' # 디폴트는 object
 
 # def index(request):
 #     posts=Post.objects.all().order_by('-pk') #모든 포스트 레코드 가져와서 posts에 저장
@@ -18,12 +22,12 @@ class PostList(ListView):#기존 FBV의 index와 같은 역할
 #             'posts':posts,
 #         }
 #     )
-def single_post_page(request, pk):
-    post=Post.objects.get(pk=pk)
-    return render(
-        request,
-        'blog/single_post_page.html',
-        {
-            'post':post,
-        }
-    )
+# def single_post_page(request, pk):
+#     post=Post.objects.get(pk=pk)
+#     return render(
+#         request,
+#         'blog/single_post_page.html',
+#         {
+#             'post':post,
+#         }
+#     )
