@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
 {% block head_title %}
     {{ post.title }} - Blog
 {% endblock %}
@@ -65,10 +66,15 @@
         <div class="card my-4">
             <h5 class="card-header">Leave a Comment:</h5>
             <div class="card-body">
-                <form>
-                    <div class="form-group"><textarea class="form-control" rows="3"></textarea></div>
+                {% if user.is_authenticated %}
+                <form id="comment-form" method="POST" action="{{ post.get_absolute_url }}new_comment/">
+                    {% csrf_token %}
+                    <div class="form-group">{{ comment_form | crispy }}</div>
                     <button class="btn btn-primary" type="submit">Submit</button>
                 </form>
+                {% else %}
+                    <a role="button" class="btn btn-outline-dark btn-block btn-sm" style="width:100%" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log in and leave a comment</a>
+                {% endif %}
             </div>
         </div>
         {% if post.comment_set.exists %}
