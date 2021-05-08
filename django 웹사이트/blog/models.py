@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import os
 
 class Post(models.Model):   # Post Model 만들기
@@ -10,10 +11,11 @@ class Post(models.Model):   # Post Model 만들기
     
     created_at = models.DateTimeField(auto_now_add=True)      #작성일
     updated_at = models.DateTimeField(auto_now=True)         #수정일
-    #author
+    
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f'[{self.pk}]{self.title}' #self.pk는 포스트 번호, self.title은 포스트 제목
+        return f'[{self.pk}]{self.title} :: {self.author}' #self.pk는 포스트 번호, self.title은 포스트 제목
 
     def get_absolute_url(self):
         return f'/blog/{self.pk}/'
