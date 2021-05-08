@@ -16,6 +16,11 @@ class PostList(ListView):#기존 FBV의 index와 같은 역할
 class PostDetail(DetailView):
     model=Post
     context_object_name='post' # 디폴트는 object
+    def get_context_data(self, **kwargs):
+        context = super(PostDetail, self).get_context_data()
+        context['categories'] = Category.objects.all()
+        context['no_category_post_count']=Post.objects.filter(category=None).count()
+        return context
 
 # def index(request):
 #     posts=Post.objects.all().order_by('-pk') #모든 포스트 레코드 가져와서 posts에 저장
