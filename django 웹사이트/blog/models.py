@@ -7,6 +7,9 @@ class Category(models.Model): #카테고리
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
     def __str__(self):
         return self.name
+    def get_absolute_url(self):
+        return f'/blog/category/{self.slug}/'
+        
     class Meta:
         verbose_name_plural = 'Categories'
 
