@@ -1,3 +1,4 @@
 django 웹사이트/venv/
 django 웹사이트/db.sqlite3
 migrations/
+_media/

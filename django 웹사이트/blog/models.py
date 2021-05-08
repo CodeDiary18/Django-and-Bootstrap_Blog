@@ -3,6 +3,7 @@ from django.db import models
 class Post(models.Model):   # Post Model 만들기
     title = models.CharField(max_length=30) #제목
     content = models.TextField()            #내용
+    head_image = models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)      #작성일
     updated_at = models.DateTimeField(auto_now=True)         #수정일
     #author
