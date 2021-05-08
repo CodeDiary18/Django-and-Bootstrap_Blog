@@ -12,7 +12,7 @@ class Post(models.Model):   # Post Model 만들기
     created_at = models.DateTimeField(auto_now_add=True)      #작성일
     updated_at = models.DateTimeField(auto_now=True)         #수정일
     
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     
     def __str__(self):
         return f'[{self.pk}]{self.title} :: {self.author}' #self.pk는 포스트 번호, self.title은 포스트 제목
