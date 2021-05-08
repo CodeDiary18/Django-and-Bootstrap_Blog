@@ -33,7 +33,7 @@
         {% endif %}
         <hr />
         <!-- Post content-->
-        <p class="lead">{{ post.content }}</p>
+        <p class="lead">{{ post.get_content_markdown | safe }}</p>
         {% if post.tags.exists %}
             <i class="fas fa-tags"></i>
             {% for tag in post.tags.iterator %}
