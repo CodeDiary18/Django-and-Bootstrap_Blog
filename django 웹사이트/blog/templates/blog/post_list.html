@@ -6,7 +6,6 @@
         <title>CodeDiary18의 Blog</title>
         <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
         <script src="https://kit.fontawesome.com/726bbd6862.js" crossorigin="anonymous"></script>
-        <!-- <script src="https://kit.fontawesome.com/84f8adb47e.js" crossorigin="anonymous"></script> -->
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -87,7 +86,11 @@
                     {% for p in post_list %}
                     <!-- Blog post-->
                     <div class="card mb-4">
-                        <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap" />
+                        {% if p.head_image %}
+                            <img class="card-img-top" src="{{ p.head_image.url }}" alt="{{ p }} head image" />
+                        {% else %}
+                            <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random_image">
+                        {% endif %}
                         <div class="card-body">
                             <h2 class="card-title">{{ p.title }}</h2>
                             <p class="card-text">{{ p.content }}</p>
