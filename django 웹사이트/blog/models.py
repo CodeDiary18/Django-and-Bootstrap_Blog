@@ -2,6 +2,15 @@ from django.db import models
 from django.contrib.auth.models import User
 import os
 
+class Category(models.Model): #카테고리
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name_plural = 'Categories'
+
+
 class Post(models.Model):   # Post Model 만들기
     title = models.CharField(max_length=30) #제목
     hook_text = models.CharField(max_length=100, blank=True)
@@ -13,7 +22,8 @@ class Post(models.Model):   # Post Model 만들기
     updated_at = models.DateTimeField(auto_now=True)         #수정일
     
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
-    
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+
     def __str__(self):
         return f'[{self.pk}]{self.title} :: {self.author}' #self.pk는 포스트 번호, self.title은 포스트 제목
 

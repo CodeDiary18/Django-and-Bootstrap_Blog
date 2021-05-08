@@ -1,11 +1,17 @@
 #from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import Post
+from .models import Post, Category
 
 class PostList(ListView):#기존 FBV의 index와 같은 역할
     model=Post  # 포스트 목록
     #template_name='blog/index.html'
     ordering='-pk' # 최신 포스트부터 정렬되어 나옴
+
+    def get_context_data(self, **kwargs):
+        context = super(PostList, self).get_context_data()
+        context['categories'] = Category.objects.all()
+        context['no_category_post_count']=Post.objects.filter(category=None).count()
+        return context
 
 class PostDetail(DetailView):
     model=Post
