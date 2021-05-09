@@ -22,6 +22,12 @@
             {% if user.is_authenticated %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {% if user.socialaccount_set.all.0.get_avatar_url %}
+                        <img class="rounded-circle" width="25px" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="">
+                    {% else %}
+                        <img class="rounded-circle" src="https://doitdjango.com/avatar/id/131/83a0315115dc3c15/svg/{{ user.email }}" width="25x">
+                    {% endif %}
+                    &nbsp;
                     {{ user.username }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
